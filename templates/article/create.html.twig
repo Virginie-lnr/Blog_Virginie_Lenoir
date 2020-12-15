@@ -1,0 +1,26 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+    Créer un article
+{% endblock %}
+
+{% block content %}
+
+  <div class="container mt-5 mb-5">
+    {{ form_start(form) }}
+
+      {{ form_row(form.titre) }}
+
+      {{ form_label(form.contenu) }}
+      {{ form_widget(form.contenu, {"attr":{"rows":10}}) }}
+
+      {{ form_row(form.imageFile) }}
+
+        <div class="form-group">
+          <button type="submit" id="article_Enregistrer" class="btn-primary btn mt-2">Ajouter l'article</button>
+        </div>
+
+    {{ form_end(form) }}
+  </div>
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+    Les articles
+{% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid mt-5 mb-5 ml-5 text-center">
+        <a href="{{ path('app_createarticle') }}">+ Ajouter un nouvel article</a>
+    </div>
+
+    <div class="container-fluid mt-5 mb-5">
+        <div class="row justify-content-center">
+            {% for article in articles %}
+                <div class="card col-sm-12 col-lg-3 col-md-6 m-2">
+                    <div class="card-body">
+                        <img class="card-img-top mb-2" src=" {{ asset('images/articles/' ~ article.image) }}" alt="Card image cap" style="max-height: 300px;">
+                        <h5 class="card-title">{{ article.titre }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ article.dateCreation | date('d/m/Y')}}</h6>
+                        <p class="card-text">{{ article.contenu | slice(0, 150)}}
+                            <a href="{{ path('app_article', {'id': article.id} ) }}">... Lire la suite</a>
+                        </p>
+                        <a href="{{ path('app_article', {id: article.id}) }}" class="card-link">Voir</a>
+                        <a href="{{ path('app_articleupdate', {id: article.id}) }}" class="card-link">Editer</a>
+                        <a href="{{ path('app_articledelete', {id: article.id}) }}" class="card-link text-danger" onclick="return confirm('Es-tu sur de vouloir supprimer cet article?')">Supprimer</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
