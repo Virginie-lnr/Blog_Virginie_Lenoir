@@ -1,0 +1,32 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row col-md-12 col-md-offset-2 custyle">
+    <table class="table table-striped custab">
+    <thead>
+    <a href="{{ path('app_categoriecreate') }}" class="btn btn-primary btn-xs pull-right"><b>+</b>Ajouter une nouvelle catégorie</a>
+        <tr>
+            <th>ID</th>
+            <th>Label</th>
+            {# <th>Articles reliés à la catégorie</th> #}
+            <th class="text-center">Action</th>
+        </tr>
+    </thead>
+      {% for categorie in categories %}
+            <tr>
+                <td>{{ categorie.id }}</td>
+                <td>{{ categorie.label }}</td>
+                {# <td>articles reliés à la catégorie</td> #}
+                <td class="text-center">
+                  <a class='btn btn-info btn-xs' href="{{ path('app_categorieupdate', {id: categorie.id}) }}"><span class="glyphicon glyphicon-edit"></span>Editer</a> 
+                  <a href="{{ path('app_categoriedelete', {id: categorie.id}) }}" class="btn btn-danger btn-xs" onclick="return confirm('Es-tu sûr de vouloir supprimer cette catégorie?')"><span class="glyphicon glyphicon-remove"></span>Supprimer</a>
+                </td>
+            </tr>
+      {% endfor %}
+    </table>
+    </div>
+</div>
+
+{% endblock %}

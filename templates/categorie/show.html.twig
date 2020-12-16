@@ -1,0 +1,50 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %} {{ categorie.label }} {% endblock %}
+
+{% block content %} 
+
+<div class="container mt-5">
+  <h2> {{ categorie.label }} </h2>
+  <hr>
+      <table class="table thead-dark">
+        <thead class="thead-dark">
+            <tr>
+                <th>Titre</th>
+                <th>Contenu</th>
+                <th>Publié le</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+        {% for article in categorie.articles %}
+            <tr>
+                <td>
+                    <a href=" {{ path('app_article', {id: article.id}) }} ">
+                        {{ article.titre }}
+                    </a>
+                </td>
+                <td>
+                    {{ article.contenu | slice(0, 100) | raw }}
+                </td>
+
+                <td>
+                    {{ article.dateCreation | date('d/m/Y') }}
+                </td>
+
+                <td>
+                    <a href=" {{ path('app_articledelete', {id: article.id }) }} " onclick="return confirm('Are you sure you want to delete?')">
+                        Supprimer
+                    </a>
+                    |
+                    <a href="{{ path('app_articleupdate', {id: article.id }) }} ">
+                        Éditer
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

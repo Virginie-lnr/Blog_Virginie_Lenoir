@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class SecurityController extends AbstractController
 {
@@ -47,6 +49,7 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/user/delete/{id<\d+>}", name="app_userdelete")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete($id){
         $manager = $this->getDoctrine()->getManager(); 
@@ -56,5 +59,9 @@ class SecurityController extends AbstractController
         $manager->flush(); 
 
         return $this->redirectToRoute('app_users'); 
+    }
+
+    public function promoteAdmin(){
+        
     }
 }

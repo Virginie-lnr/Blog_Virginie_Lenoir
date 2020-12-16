@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Categorie;
 use App\Form\ArticleType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,9 +18,12 @@ class ArticleController extends AbstractController
     public function showAll(): Response
     {
         $allArticles = $this->getDoctrine()->getRepository(Article::class)->findAll(); 
+        // dd($allArticles); 
+        $allCategories = $this->getDoctrine()->getRepository(Categorie::class)->findAll(); 
 
         return $this->render('article/showall.html.twig', [
             'articles' => $allArticles,
+            'categories' => $allCategories
         ]);
     }
 

@@ -1,0 +1,21 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+    Créer une catégorie
+{% endblock %}
+
+{% block content %}
+
+  <div class="container mt-5 mb-5">
+    {{ form_start(form) }}
+
+      {{ form_row(form.label) }}
+
+        <div class="form-group">
+          <button type="submit" id="article_Enregistrer" class="btn-primary btn mt-2">Ajouter</button>
+        </div>
+
+    {{ form_end(form) }}
+  </div>
+
+{% endblock %}

@@ -2,9 +2,12 @@
 
 namespace App\Entity;
 
+use App\Entity\Categorie;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ArticleRepository;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 
@@ -47,8 +50,14 @@ class Article
      */
     private $image;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Categorie::class, inversedBy="articles")
+     */
+    private $categories;
+
     public function __construct(){
         $this->dateCreation = new \DateTime('now'); 
+        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -124,6 +133,32 @@ class Article
     public function setImageFile(File $imageFile)
     {
         $this->imageFile = $imageFile;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Categorie[]
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Categorie $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Categorie $category): self
+    {
+        if ($this->categories->contains($category)) {
+            $this->categories->removeElement($category);
+        }
 
         return $this;
     }
