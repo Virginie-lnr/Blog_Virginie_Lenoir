@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Categorie;
+use App\Entity\User;
 use App\Form\ArticleType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -48,12 +49,14 @@ class ArticleController extends AbstractController
 
         $article = new Article();
 
-
         $form = $this->createForm(ArticleType::class, $article); 
-        $form->handleRequest($request);   
+        $form->handleRequest($request);  
+        
+        $user = $this->getUser();
 
         if($form->isSubmitted() && $form->isValid()){
             $article->setDateCreation(new \DateTime('now'));
+            $article->setUser($user);
             $manager = $this->getDoctrine()->getManager(); 
             $manager->persist($article); 
             $manager->flush(); 
@@ -77,8 +80,11 @@ class ArticleController extends AbstractController
         $form = $this->createForm(ArticleType::class, $article); 
         $form->handleRequest($request); 
 
+        // $user = $this->getUser();
+
         if($form->isSubmitted() && $form->isValid()){
             $article->setDateCreation(new \DateTime('now')); 
+            // $article->setUser($user);
             $manager->persist($article); 
             $manager->flush(); 
             

@@ -38,7 +38,7 @@
                         <p class="card-text">{{ article.contenu | slice(0, 150)}}
                             <a href="{{ path('app_article', {'id': article.id} ) }}" classe="lire-la-suite">... Lire la suite</a>
                         </p>
-                        {% if(is_granted('ROLE_ADMIN')) %}
+                        {% if(is_granted('ROLE_ADMIN')) and (app.user.email == article.user.email) %}
                             <a href="{{ path('app_articleupdate', {id: article.id}) }}" class="card-link text-primary">Editer</a>
                             <a href="{{ path('app_articledelete', {id: article.id}) }}" class="card-link text-danger" onclick="return confirm('Es-tu sur de vouloir supprimer cet article?')">Supprimer</a>
                         {% endif %}

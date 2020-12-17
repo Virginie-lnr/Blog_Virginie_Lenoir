@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\User;
 use App\Entity\Article;
 use App\Entity\Categorie;
 use Doctrine\ORM\EntityRepository;
