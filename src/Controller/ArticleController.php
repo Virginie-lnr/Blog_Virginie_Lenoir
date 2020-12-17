@@ -9,11 +9,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class ArticleController extends AbstractController
 {
     /**
      * @Route("/articles", name="app_articles")
+     * 
      */
     public function showAll(): Response
     {
@@ -40,6 +42,7 @@ class ArticleController extends AbstractController
 
     /**
      * @Route("article/create", name="app_createarticle")
+     * @isGranted("ROLE_ADMIN")
      */
     public function create(Request $request){
 
@@ -64,6 +67,7 @@ class ArticleController extends AbstractController
 
     /**
      * @Route("article/update/{id<\d+>}", name="app_articleupdate")
+     * @isGranted("ROLE_ADMIN")
      */
     public function update(Request $request, $id){
         $manager = $this->getDoctrine()->getManager(); 
@@ -89,6 +93,7 @@ class ArticleController extends AbstractController
 
     /**
      * @Route("article/delete/{id<\d+>}", name="app_articledelete")
+     * @isGranted("ROLE_ADMIN")
      */
     public function delete($id){
         $manager = $this->getDoctrine()->getManager(); 

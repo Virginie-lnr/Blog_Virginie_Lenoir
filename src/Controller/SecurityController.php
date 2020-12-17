@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Form\PromoteAdminType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
@@ -39,6 +41,7 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/users", name="app_users")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function showall(){
         $allUsers = $this->getDoctrine()->getRepository(User::class)->findAll(); 
@@ -61,7 +64,72 @@ class SecurityController extends AbstractController
         return $this->redirectToRoute('app_users'); 
     }
 
-    public function promoteAdmin(){
-        
+    /**
+     * @Route("/admin/promouvoir/{id<\d+>}", name="app_promoteadmin")
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function promoteAdmin(Request $request, $id){
+        $secret = 'abracadabra'; 
+
+        $form = $this->createForm(PromoteAdminType::class); 
+        $form->handleRequest($request);
+
+        $manager = $this->getDoctrine()->getManager(); 
+        $user = $manager->getRepository(User::class)->find($id); 
+
+        if(!$user){
+            throw $this->createNotFoundException("Impossible de trouver l'utilisateur avec l'id : $id"); 
+        };
+
+        if($form->isSubmitted() && $form->isValid()){
+            if($form->get("secret")->getData() != $secret){
+                throw $this->createNotFoundException("Vous n'avez pas le bon mot de passe pour être administrateur"); 
+            }
+            $user->setRoles(["ROLE_ADMIN"]); 
+            
+            $manager->persist($user); 
+            $manager->flush(); 
+
+            return $this->redirectToRoute('app_users'); 
+        }
+        return $this->render('security/promoteadmin.html.twig', [
+            'form' => $form->createView(), 
+            'user' => $user
+        ]);
     }
+
+    /**
+     * @Route("/admin/retirer-role-admin/{id<\d+>}", name="app_removeadmin")
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function removeAdmin(Request $request, $id){
+        $secret = 'abracadabra'; 
+
+        $form = $this->createForm(PromoteAdminType::class); 
+        $form->handleRequest($request);
+
+        $manager = $this->getDoctrine()->getManager(); 
+        $user = $manager->getRepository(User::class)->find($id); 
+
+        if(!$user){
+            throw $this->createNotFoundException("Impossible de trouver l'utilisateur avec l'id : $id"); 
+        };
+
+        if($form->isSubmitted() && $form->isValid()){
+            if($form->get("secret")->getData() != $secret){
+                throw $this->createNotFoundException("Vous n'avez pas le bon mot de passe pour être administrateur"); 
+            }
+            $user->setRoles([]); 
+            
+            $manager->persist($user); 
+            $manager->flush(); 
+
+            return $this->redirectToRoute('app_users'); 
+        }
+        return $this->render('security/promoteadmin.html.twig', [
+            'form' => $form->createView(), 
+            'user' => $user
+        ]);
+    }
+
 }

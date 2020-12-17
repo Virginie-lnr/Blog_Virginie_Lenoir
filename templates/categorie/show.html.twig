@@ -3,48 +3,36 @@
 {% block title %} {{ categorie.label }} {% endblock %}
 
 {% block content %} 
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="collapse navbar-collapse d-flex justify-content-center" id="navbarNavAltMarkup">
+        <div class="navbar-nav ">
+            {% for categorie in categories %}
+                <a class="nav-item nav-link text-white" href="{{ path('app_categorie', {id: categorie.id}) }}">
+                    {{ categorie.label }}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</nav> 
 
-<div class="container mt-5">
-  <h2> {{ categorie.label }} </h2>
-  <hr>
-      <table class="table thead-dark">
-        <thead class="thead-dark">
-            <tr>
-                <th>Titre</th>
-                <th>Contenu</th>
-                <th>Publié le</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        
-        <tbody>
-        {% for article in categorie.articles %}
-            <tr>
-                <td>
-                    <a href=" {{ path('app_article', {id: article.id}) }} ">
-                        {{ article.titre }}
-                    </a>
-                </td>
-                <td>
-                    {{ article.contenu | slice(0, 100) | raw }}
-                </td>
+<div class="container-fluid mt-5 mb-5">
+    <h2 class="text-center"> {{ categorie.label }} </h2>
+        <div class="row justify-content-center">
+            {% for article in categorie.articles %}
+                <div class="card col-sm-12 col-lg-6 col-md-6 m-2">
+                    <div class="card-body text-center">
+                        <img class="card-img-top mb-2" src=" {{ asset('images/articles/' ~ article.image) }}" alt="Card image cap" style="height:auto;width:auto;">
+                        <h5 class="card-title">{{ article.titre }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ article.dateCreation | date('d/m/Y')}}</h6>
+                        <p class="card-text">{{ article.contenu }}</p>
+                        {% if(is_granted('ROLE_ADMIN')) %}
+                            <a href="{{ path('app_articleupdate', {id: article.id}) }}" class="card-link btn btn-primary">Editer</a>
+                            <a href="{{ path('app_articledelete', {id: article.id}) }}" class="card-link btn btn-danger" onclick="return confirm('Es-tu sur de vouloir supprimer cet article?')">Supprimer</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 
-                <td>
-                    {{ article.dateCreation | date('d/m/Y') }}
-                </td>
-
-                <td>
-                    <a href=" {{ path('app_articledelete', {id: article.id }) }} " onclick="return confirm('Are you sure you want to delete?')">
-                        Supprimer
-                    </a>
-                    |
-                    <a href="{{ path('app_articleupdate', {id: article.id }) }} ">
-                        Éditer
-                    </a>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
 {% endblock %}

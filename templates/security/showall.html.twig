@@ -6,19 +6,31 @@
 
 {% block content %}
 
-    <div class="container-fluid mt-5 mb-5 ">
+    <div class="container-fluid mt-5 mb-5 sticky-footer">
         <div class="row justify-content-center">
             {% for user in users %}
                 <div class="card col-sm-12 col-lg-3 col-md-6 m-2">
                     <div class="card-body">
-                        <h5 class="card-title">{{ user.nom }} {{ user.prenom }}</h5>
-                        <p class="card-text">Email : {{ user.email }}</p>
-                        {% for user in user.roles %}
-                          <p class="card-text">Role : {{ user }}</p>
-                        {% endfor %}
-                        <a href="" class="card-link">Promouvoir admin</a>
-                        <a href="" class="card-link">Retirer rôle admin</a>
-                        <a href="{{ path('app_userdelete', {id: user.id}) }}" class="card-link text-danger" onclick="return confirm('Es-tu sur de vouloir supprimer cet article?')">Supprimer</a>
+                        <div class="row">
+                            <div class="col-6">
+                                <h5>Infos utilisateurs</h5>
+                                <hr>
+                                <h6 class="card-title">{{ user.nom }} {{ user.prenom }}</h6>
+                                <p class="card-text">Email : {{ user.email }}</p>
+                                <p class="card-text"> Role:
+                                    {% for role in user.roles %}
+                                        {{ role }}
+                                    {% endfor %}
+                                </p>
+                            </div>
+                            <div class="col-6">
+                                <h5>Actions</h5>
+                                <hr>
+                                <a href="{{ path('app_promoteadmin', {id: user.id}) }}" class="btn btn-primary m-1">Promouvoir admin</a>
+                                <a href="{{ path('app_removeadmin', {id: user.id}) }}" class="btn btn-info m-1">Retirer rôle admin</a>
+                                <a href="{{ path('app_userdelete', {id: user.id}) }}" class="btn btn-danger m-1" onclick="return confirm('Es-tu sur de vouloir supprimer cet article?')">Supprimer</a>
+                            </div>                            
+                        </div>
                     </div>
                 </div>
             {% endfor %}

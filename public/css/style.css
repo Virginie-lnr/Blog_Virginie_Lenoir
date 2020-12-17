@@ -1,3 +1,7 @@
+body{
+    background: #F7F4FF;
+}
+
 .custab{
     border: 1px solid #ccc;
     padding: 5px;
@@ -10,3 +14,82 @@
     box-shadow: 3px 3px 0px transparent;
     transition: 0.5s;
     }
+
+.sticky-footer{
+    margin-bottom: 150px !important;
+}
+/* #footer {
+    bottom: 0;
+    margin-top: auto;
+    width: 100%;
+    position: relative;
+    height: auto;
+    padding: 20px;
+    background: linear-gradient(287deg, rgba(220,215,238,1) 0%, rgba(199,180,247,1) 100%, rgba(246,243,254,1) 100%);
+    color: black;
+
+}
+
+.footer-block {
+    margin: 20px 0;
+} */
+
+footer{
+    position: relative;
+    box-sizing: border-box;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin-top: 200px;
+    width: 100%;
+    min-height: 20em;
+    color: white;
+    padding: 20px;
+    background: linear-gradient(287deg, rgba(220,215,238,1) 0%, rgba(199,180,247,1) 100%, rgba(246,243,254,1) 100%);
+    border-top: 0.0625em solid rgb(190, 190, 190);
+}
+
+footer nav{
+    position: relative;
+    width: 80%;
+    padding-top: 50px;
+    padding-left: 10%;
+}
+
+footer a{
+    font-weight: 500;
+}
+
+footer a:hover{
+    color: #a075f7;
+    /* text-shadow:  0 0 10px #DDDDDD; */
+    text-decoration: none;
+}
+
+footer .copyright{
+    position: absolute;
+    right: 40px;
+    top: 10px;
+    margin-top: 50px;
+}
+
+.navbar{
+background: linear-gradient(287deg, rgba(220,215,238,1) 0%, rgba(199,180,247,1) 100%, rgba(246,243,254,1) 100%);
+}
+
+.btn-primary{
+    background-color:#7B40F2 !important;
+    border: #7B40F2
+}
+
+.text-primary{
+    color: #7B40F2 !important;
+}
+
+.form-control{
+    margin-bottom: 20px;
+}
+
+.btn-lg{
+    margin-bottom: 20px;
+}

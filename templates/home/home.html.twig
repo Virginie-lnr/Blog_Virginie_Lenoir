@@ -15,21 +15,8 @@
   </h1>
   <h3>Dernier article à la une</h3>
   <div class="card text-center mt-5 mb-5">
-    <div class="card-header">
-      <ul class="nav nav-tabs card-header-tabs">
-        <li class="nav-item">
-          <a class="nav-link active" href=" {{ path('home') }} ">À la une</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ path('app_article', {id: dernierArticle.id }) }}">Voir l'article</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ path('app_articleupdate', {id: dernierArticle.id }) }}">Editer</a>
-        </li>
-      </ul>
-    </div>
     <div class="card-body">
-      <h5 class="card-title">{{ dernierArticle.titre }}</h5>
+      <h5 class="card-title mt-4 mb-4">{{ dernierArticle.titre }}</h5>
       <img class="card-img-top mb-4" src=" {{ asset('images/articles/' ~ dernierArticle.image) }}" alt="Card image cap" style="width:auto;max-height:300px;">
       <p class="card-text">{{ dernierArticle.contenu | slice(0,100) }}...</p>
       <a href="{{ path('app_article', {id: dernierArticle.id }) }}" class="btn btn-primary">Voir l'article</a>

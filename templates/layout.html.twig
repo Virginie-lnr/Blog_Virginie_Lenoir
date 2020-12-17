@@ -8,7 +8,7 @@
 
 <!-- NAVBAR -->
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="{{ path('home') }}">Home</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,19 +17,20 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_articles') }}">Les articles</a>
+            <a class="nav-link text-white" href="{{ path('app_articles') }}">Les articles</a>
           </li>
-
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Admin Dashboard
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="{{ path('app_users') }}">Les utilisateurs</a>
-              <a class="dropdown-item" href="{{ path('app_categories') }}">Les catégories</a>
-              <a class="dropdown-item" href="{{ path('app_createarticle') }}">Créer un article</a>
-            </div>
-          </li>
+          {% if(is_granted('ROLE_ADMIN')) %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Admin Dashboard
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{{ path('app_users') }}">Les utilisateurs</a>
+                <a class="dropdown-item" href="{{ path('app_categories') }}">Les catégories</a>
+                <a class="dropdown-item" href="{{ path('app_createarticle') }}">Créer un article</a>
+              </div>
+            </li>
+          {% endif %}
           
         </ul>
         
@@ -37,14 +38,14 @@
           <ul class="navbar-nav ml-auto flex-nowrap">
           {% if app.user %}
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="{{ path('app_logout') }}">Se déconnecter</a>
+              <a class="nav-link text-white" aria-current="page" href="{{ path('app_logout') }}">Se déconnecter</a>
             </li>
           {% else %}
             <li class="nav-item ml-auto">
-              <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
+              <a class="nav-link text-white" href="{{ path('app_login') }}">Se connecter</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link ml-auto" href="{{ path('app_register') }}">Créer un compte</a>
+              <a class="nav-link ml-auto text-white" href="{{ path('app_register') }}">Créer un compte</a>
             </li>
           {% endif %}
           </ul>
@@ -55,18 +56,6 @@
   </nav>
 <!-- END NAVABR -->
 
-  <!-- SECONDE NAVBAR POUR CATEGORIES -->
-{# <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="collapse navbar-collapse d-flex justify-content-center" id="navbarNavAltMarkup">
-    <div class="navbar-nav ">
-    {% for category in categories %}
-      <a class="nav-item nav-link" href="{{ path('app_categorie', {id: category.id}) }}">{{ category.label }}</a>
-    {% endfor %}
-    </div>
-  </div>
-</nav> #}
-<!-- FIN CATEGORIE NAVBAR -->
-
 </header>
 
 <main>
@@ -75,8 +64,23 @@
     {% endblock %}
 </main>
 
-<footer>
+<footer class="">
+      <nav class="row">
+      <div class="col-sm-12 col-md-6 col-lg-3">
+        <p><a href="" class="text-dark">Qui sommes nous?</a></p>
+        <p><a href="" class="text-dark">CGV</a></p>
+        <p><a href="" class="text-dark">Nous contacter</a></p>
+      </div>
+      <div class="col-sm-12 col-md-6 col-lg-3">
+        <p><a href="" class="text-dark">Nos valeurs</a></p>
+        <p><a href="" class="text-dark">Devenir bloggeur</a></p>
+        <p><a href="" class="text-dark">Rejoindre l'équipe</a></p>
+      </div>
+    </nav>
 
+    <div class="copyright text-dark">
+      <p>&copy; copyright Virginie Lenoir</p>
+    </div>
 </footer>
 
 {% endblock %}
