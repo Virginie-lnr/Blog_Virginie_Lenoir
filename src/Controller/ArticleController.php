@@ -80,11 +80,8 @@ class ArticleController extends AbstractController
         $form = $this->createForm(ArticleType::class, $article); 
         $form->handleRequest($request); 
 
-        // $user = $this->getUser();
-
         if($form->isSubmitted() && $form->isValid()){
             $article->setDateCreation(new \DateTime('now')); 
-            // $article->setUser($user);
             $manager->persist($article); 
             $manager->flush(); 
             
