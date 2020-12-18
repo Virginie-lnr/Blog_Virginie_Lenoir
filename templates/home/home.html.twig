@@ -17,7 +17,9 @@
   <div class="card text-center mt-5 mb-5">
     <div class="card-body">
       <h5 class="card-title mt-4 mb-4">{{ dernierArticle.titre }}</h5>
-      <img class="card-img-top mb-4" src=" {{ asset('images/articles/' ~ dernierArticle.image) }}" alt="Card image cap" style="width:auto;max-height:300px;">
+      {% if dernierArticle.image != NULL %}
+        <img class="card-img-top mb-4" src=" {{ asset('images/articles/' ~ dernierArticle.image) }}" alt="Card image cap" style="width:auto;max-height:300px;">
+      {% endif %}
       <p class="card-text">{{ dernierArticle.contenu | slice(0,100) }}...</p>
       <a href="{{ path('app_article', {id: dernierArticle.id }) }}" class="btn btn-primary">Voir l'article</a>
     </div>
