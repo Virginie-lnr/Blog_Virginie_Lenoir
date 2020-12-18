@@ -77,6 +77,10 @@ class ArticleController extends AbstractController
 
         $article = $manager->getRepository(Article::class)->find($id); 
 
+        if($article->getUser() !== $this->getUser()){
+            throw $this->createNotFoundException("Vous n'avez pas le droit d'éditer cet article. "); 
+        }
+
         $form = $this->createForm(ArticleType::class, $article); 
         $form->handleRequest($request); 
 
@@ -102,6 +106,10 @@ class ArticleController extends AbstractController
         $manager = $this->getDoctrine()->getManager(); 
 
         $article = $manager->getRepository(Article::class)->find($id); 
+        
+        if($article->getUser() !== $this->getUser()){
+            throw $this->createNotFoundException("Vous n'avez pas le droit de supprimer cet article. "); 
+        }
 
         $manager->remove($article); 
         $manager->flush();
