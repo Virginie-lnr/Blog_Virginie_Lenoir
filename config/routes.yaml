@@ -1,3 +1,35 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+# ----------------------------- ROUTES STATIQUES ------------------------------------------
+
+app_quisommesnous:  
+    path: /qui-sommes-nous
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
+    defaults:
+      template: "statique/quiSommesNous.html.twig"
+
+app_cgv:  
+    path: /cgv
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
+    defaults:
+      template: "statique/cgv.html.twig"
+
+app_contact:  
+    path: /contact
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
+    defaults:
+      template: "statique/contact.html.twig"
+
+app_jointeam:  
+    path: /join-team
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
+    defaults:
+      template: "statique/joinTeam.html.twig"
+
+app_values:  
+    path: /nos-valeurs
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
+    defaults:
+      template: "statique/values.html.twig"

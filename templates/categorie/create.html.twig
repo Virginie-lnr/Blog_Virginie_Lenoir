@@ -11,9 +11,15 @@
 
       {{ form_row(form.label) }}
 
+      {% if app.request.get('_route') == 'app_categorieupdate' %}
+        <div class="form-group">
+          <button type="submit" id="article_Enregistrer" class="btn-primary btn mt-2">Editer</button>
+        </div>
+      {% else %}
         <div class="form-group">
           <button type="submit" id="article_Enregistrer" class="btn-primary btn mt-2">Ajouter</button>
         </div>
+      {% endif %}
 
     {{ form_end(form) }}
   </div>

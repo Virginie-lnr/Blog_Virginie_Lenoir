@@ -17,9 +17,15 @@
       {{ form_row(form.categories) }}
       {{ form_row(form.imageFile) }}
 
+      {% if app.request.get('_route') == 'app_articleupdate' %}
+        <div class="form-group">
+          <button type="submit" id="article_Enregistrer" class="btn-primary btn mt-2">Editer l'article</button>
+        </div>
+      {% else %}
         <div class="form-group">
           <button type="submit" id="article_Enregistrer" class="btn-primary btn mt-2">Ajouter l'article</button>
         </div>
+      {% endif %}
 
     {{ form_end(form) }}
   </div>
